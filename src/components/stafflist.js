@@ -19,7 +19,7 @@ class StaffList extends Component{
             return(
                 <div className="col-12 col-md-6 col-lg-4 p-1">
                     <Card>
-                    <CardTitle className="">Họ và tên : {staff.name}</CardTitle>
+                    <CardTitle>Họ và tên : {staff.name}</CardTitle>
                         <CardText>Ngày sinh: {dateFormat(staff.doB, "dd/mm/yyyy")}</CardText>
                         <CardText>Ngày vào công ty: {dateFormat(staff.startDate, "dd/mm/yyyy")}</CardText>
                         <CardText>Phòng ban: {staff.department.name}</CardText>
@@ -42,7 +42,7 @@ class StaffList extends Component{
     render(){
         const staffs=this.props.staffs.map((staff)=>{
             return(
-                <div key={staff.id} className="col-12 col-md-6 col-lg-4 p-1">
+                <div key={staff.id} className="col-12 col-md-6 col-lg-4 p-1" >
                 <Card onClick={()=>this.onStaffSlect(staff)}>
                     <CardTitle>{staff.name}</CardTitle>
                 </Card>
@@ -55,10 +55,11 @@ class StaffList extends Component{
                 <div className="row">                 
                     {staffs}
                 </div>
-                <div className="row">
+                <div className="row" id="show-staff">
                     {this.renderStaff(this.state.slectedStaff)}
                 
                 </div>
+
             </div>
             
 
