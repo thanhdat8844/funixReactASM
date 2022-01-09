@@ -3,12 +3,13 @@ import './App.css';
 import { Navbar, NavbarBrand } from 'reactstrap';
 import { Component } from 'react/cjs/react.production.min';
 import {STAFFS} from "./shared/staffs";
+import StaffList from "./components/stafflist";
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      staff : STAFFS
+      staffs : STAFFS
     }
   }
   render(){
@@ -21,6 +22,9 @@ class App extends Component {
             </NavbarBrand>
           </div>
         </Navbar>
+      
+      <StaffList staffs={this.state.staffs}>
+      </StaffList>
       </div>
 
       );
