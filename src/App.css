@@ -15,4 +15,6 @@
   background-color: #007fff;
   color: whitesmoke;
 }
-
+.navbar-brand {
+  font-weight: bold;
+}
