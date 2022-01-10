@@ -6,8 +6,10 @@ class StaffList extends Component{
     constructor(props){
         super(props);
         this.state={
-            slectedStaff:null
+            slectedStaff:null,
+            scaleCols:"7"
         }
+        this.onHandleScale = this.onHandleScale.bind(this);
 
     }
     showCols(props){
@@ -34,6 +36,10 @@ class StaffList extends Component{
                 break;
         }
         return classCols;
+    }
+    onHandleScale(event){
+        this.setState({scaleCols: event.target.value},
+        ()=>this.render)
     }
     onStaffSlect(staff){
         this.setState({slectedStaff: staff});
@@ -68,7 +74,7 @@ class StaffList extends Component{
     render(){
         const staffs=this.props.staffs.map((staff)=>{
             return(
-                <div key={staff.id} className={this.showCols("6")} >
+                <div key={staff.id} className={this.showCols(this.state.scaleCols)} >
                 <Card onClick={()=>this.onStaffSlect(staff)}>
                     <CardTitle>{staff.name}</CardTitle>
                 </Card>
@@ -85,12 +91,12 @@ class StaffList extends Component{
                     <p>Chọn số cột bạn muốn hiển thị:</p>
                 </div>
                 <form>
-                    <input name="cols "type="radio"/>Mặc định
-                    <input name="cols "type="radio"/>1 cột
-                    <input name="cols "type="radio"/>2 cột
-                    <input name="cols "type="radio"/>3 cột
-                    <input name="cols "type="radio"/>4 cột
-                    <input name="cols "type="radio"/>6 cột
+                    <input name="cols "type="radio" value="7"checked = {this.state.scaleCols === "7"}onChange={this.onHandleScale}/>Mặc định
+                    <input name="cols "type="radio" value="1"checked = {this.state.scaleCols === "1"}onChange={this.onHandleScale}/>1 cột
+                    <input name="cols "type="radio" value="2"checked = {this.state.scaleCols === "2"}onChange={this.onHandleScale}/>2 cột
+                    <input name="cols "type="radio" value="3"checked = {this.state.scaleCols === "3"}onChange={this.onHandleScale}/>3 cột
+                    <input name="cols "type="radio" value="4"checked = {this.state.scaleCols === "4"}onChange={this.onHandleScale}/>4 cột
+                    <input name="cols "type="radio" value="6"checked = {this.state.scaleCols === "6"}onChange={this.onHandleScale}/>6 cột
                 </form>
                 <div className="row" id="show-staff">
                     {this.renderStaff(this.state.slectedStaff)}
