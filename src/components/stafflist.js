@@ -65,7 +65,7 @@ class StaffList extends Component{
         else{
             return(
                 <div>
-                    <CardTitle>Bấm vào tên nhân viên để xem thông tin.</CardTitle>
+                    <CardTitle>Click vào tên nhân viên để xem thông tin.</CardTitle>
                 </div>
             );
         }
