@@ -60,24 +60,12 @@ class StaffList extends Component{
                     <p>Chọn số cột bạn muốn hiển thị:</p>
                 </div>
                 <form>
-                    <label>
-                        <input type="radio"/>Mặc định
-                    </label>
-                    <label>
-                        <input type="radio"/>1 cột
-                    </label>
-                    <label>
-                        <input type="radio"/>2 cột
-                    </label>
-                    <label>
-                        <input type="radio"/>3 cột
-                    </label>
-                    <label>
-                        <input type="radio"/>4 cột
-                    </label>
-                    <label>
-                        <input type="radio"/>6 cột
-                    </label>
+                        <input name="cols "type="radio"/>Mặc định
+                        <input name="cols "type="radio"/>1 cột
+                        <input name="cols "type="radio"/>2 cột
+                        <input name="cols "type="radio"/>3 cột
+                        <input name="cols "type="radio"/>4 cột
+                        <input name="cols "type="radio"/>6 cột
                 </form>
                 <div className="row" id="show-staff">
                     {this.renderStaff(this.state.slectedStaff)}
