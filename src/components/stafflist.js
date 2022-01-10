@@ -10,6 +10,31 @@ class StaffList extends Component{
         }
 
     }
+    showCols(props){
+        let classCols="";
+        switch(props){
+            default:
+            case "7":
+                classCols = "col-12 col-md-6 col-lg-4 p-1";
+                break;
+            case "1":
+                classCols = "col-12 col-md-12 col-lg-12 p-1";
+                break;
+            case "2":
+                classCols = "col-6 col-md-6 col-lg-6 p-1";
+                break;
+            case "3":
+                classCols = "col-4 col-md-4 col-lg-4 p-1";
+                break;
+            case "4":
+                classCols = "col-3 col-md-3 col-lg-3 p-1";
+                break;
+            case "6":
+                classCols = "col-2 col-md-2 col-lg-2 p-1";
+                break;
+        }
+        return classCols;
+    }
     onStaffSlect(staff){
         this.setState({slectedStaff: staff});
         
@@ -43,7 +68,7 @@ class StaffList extends Component{
     render(){
         const staffs=this.props.staffs.map((staff)=>{
             return(
-                <div key={staff.id} className="col-12 col-md-6 col-lg-4 p-1" >
+                <div key={staff.id} className={this.showCols("6")} >
                 <Card onClick={()=>this.onStaffSlect(staff)}>
                     <CardTitle>{staff.name}</CardTitle>
                 </Card>
@@ -60,12 +85,12 @@ class StaffList extends Component{
                     <p>Chọn số cột bạn muốn hiển thị:</p>
                 </div>
                 <form>
-                        <input name="cols "type="radio"/>Mặc định
-                        <input name="cols "type="radio"/>1 cột
-                        <input name="cols "type="radio"/>2 cột
-                        <input name="cols "type="radio"/>3 cột
-                        <input name="cols "type="radio"/>4 cột
-                        <input name="cols "type="radio"/>6 cột
+                    <input name="cols "type="radio"/>Mặc định
+                    <input name="cols "type="radio"/>1 cột
+                    <input name="cols "type="radio"/>2 cột
+                    <input name="cols "type="radio"/>3 cột
+                    <input name="cols "type="radio"/>4 cột
+                    <input name="cols "type="radio"/>6 cột
                 </form>
                 <div className="row" id="show-staff">
                     {this.renderStaff(this.state.slectedStaff)}
