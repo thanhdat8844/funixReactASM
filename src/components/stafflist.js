@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Card,CardImg,CardImgOverlay,CardText,CardBody,CardTitle} from "reactstrap";
+import {Card,CardText,CardTitle} from "reactstrap";
 import dateFormat from "dateformat";
 
 class StaffList extends Component{
@@ -56,6 +56,29 @@ class StaffList extends Component{
                 <div className="row">                 
                     {staffs}
                 </div>
+                <div className="col-style">
+                    <p>Chọn số cột bạn muốn hiển thị:</p>
+                </div>
+                <form>
+                    <label>
+                        <input type="radio"/>Mặc định
+                    </label>
+                    <label>
+                        <input type="radio"/>1 cột
+                    </label>
+                    <label>
+                        <input type="radio"/>2 cột
+                    </label>
+                    <label>
+                        <input type="radio"/>3 cột
+                    </label>
+                    <label>
+                        <input type="radio"/>4 cột
+                    </label>
+                    <label>
+                        <input type="radio"/>6 cột
+                    </label>
+                </form>
                 <div className="row" id="show-staff">
                     {this.renderStaff(this.state.slectedStaff)}
                 

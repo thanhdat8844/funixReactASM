@@ -18,3 +18,9 @@
 .navbar-brand {
   font-weight: bold;
 }
+.col-style{
+  font-weight: bold;
+}
+label{
+  margin: 1%;
+}
