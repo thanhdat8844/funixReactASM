@@ -22,7 +22,7 @@ import {Card,CardImg,CardText,CardBody,CardTitle} from "reactstrap";
         }
         }
     function RenderComments({cmt}){
-        if(cmt.length!=0){
+        if(cmt!=null){
             return(
                 <div className="col-12 col-md-5 m-1">
                     <h4>Comments</h4>
