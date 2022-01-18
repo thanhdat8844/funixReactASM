@@ -1,16 +1,16 @@
 .App {
   text-align: center;
 }
-.card-title{
+.card-title {
   font-size: 100%;
   font-weight: bold;
-  color:#007fff;
+  color: #007fff;
 }
-.card:hover{
-  background-color:#00ffff;
+.card:hover {
+  background-color: #00ffff;
   cursor: pointer;
 }
-#show-staff *{
+#show-staff * {
   margin: auto;
   background-color: #007fff;
   color: whitesmoke;
@@ -18,9 +18,43 @@
 .navbar-brand {
   font-weight: bold;
 }
-.col-style{
+.col-style {
   font-weight: bold;
 }
-form input{
+form input {
   margin: 1%;
+}
+
+.row-header {
+  margin: 0px auto;
+  padding: 0px auto;
+}
+
+.row-content {
+  margin: 0px auto;
+  padding: 50px 0px 50px 0px;
+  border-bottom: 1px ridge;
+  min-height: 400px;
+}
+
+.footer {
+  background-color: #d1c4e9;
+  margin: 0px auto;
+  padding: 20px 0px 20px 0px;
+}
+.jumbotron {
+  padding: 0px;
+  margin: 0px auto;
+  background: #9575cd;
+  color: floralwhite;
+}
+
+address {
+  font-size: 80%;
+  margin: 0px;
+  color: #0f0f0f;
+}
+
+.navbar-dark {
+  background-color: #512da8;
 }

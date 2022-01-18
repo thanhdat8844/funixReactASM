@@ -1,36 +1,18 @@
-import './App.css';
-import { Navbar, NavbarBrand } from 'reactstrap';
-import { Component } from 'react/cjs/react.production.min';
-import {STAFFS} from "./shared/staffs";
-import StaffList from "./components/stafflist";
+import "./App.css";
+import Main from "./components/MainComponent";
+import React, { Component } from "react";
+import { BrowserRouter } from "react-router-dom";
 
 class App extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      staffs : STAFFS
-    }
+  render() {
+    return (
+      <BrowserRouter>
+        <div>
+          <Main />
+        </div>
+      </BrowserRouter>
+    );
   }
-  render(){
-      return (
-        <div className='App'>
-        <Navbar dark color = "primary">
-          <div className = "container">
-            <NavbarBrand href = "/">
-              Ứng Dụng Quản Lý Nhân Sự V1.0
-            </NavbarBrand>
-          
-          </div>
-        </Navbar>
-      
-      <StaffList staffs={this.state.staffs}>
-      </StaffList>
-      </div>
-
-
-      );
-  }
- 
 }
 
 export default App;
