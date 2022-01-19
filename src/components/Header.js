@@ -45,12 +45,12 @@ class Header extends Component {
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink className="nav-link" to="/aboutus">
+                  <NavLink className="nav-link" to="/department">
                     <span className="fa fa-id-card-o fa-lg"></span>Phòng Ban
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink className="nav-link" to="/contactus">
+                  <NavLink className="nav-link" to="/payroll">
                     <span className="fa fa-credit-card fa-lg"></span>Bảng Lương
                   </NavLink>
                 </NavItem>

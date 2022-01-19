@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { STAFFS } from "../shared/staffs";
 import StaffList from "./StaffList";
 import Header from "./Header";
+import Footer from "./Footer";
 
 class Main extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class Main extends Component {
       <div>
         <Header />
         <StaffList staffs={this.state.staffs} />
+        <Footer />
       </div>
     );
   }
