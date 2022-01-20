@@ -2,6 +2,7 @@
   text-align: center;
 }
 .card-title {
+  margin: auto;
   font-size: 100%;
   font-weight: bold;
   color: #007fff;
@@ -20,6 +21,7 @@
 }
 .col-style {
   font-weight: bold;
+  margin: auto;
 }
 form input {
   margin: 1%;
