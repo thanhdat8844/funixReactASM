@@ -9,12 +9,12 @@ import {
 import { Link } from "react-router-dom";
 function RenderStaffList({ staff }) {
   return (
-    <div key={staff.id}>
-      <Card>
+    <Card id="show-staffs">
+      <Link to={`/staff/${staff.id}`}>
         <CardImg width="100%" src={staff.image} alt={staff.name} />
         <CardTitle>{staff.name}</CardTitle>
-      </Card>
-    </div>
+      </Link>
+    </Card>
   );
 }
 function StaffList(props) {

@@ -6,8 +6,15 @@
   font-size: 100%;
   font-weight: bold;
   color: #007fff;
+  text-align: center;
 }
-.card:hover {
+.card-img {
+  display: inline-block;
+}
+.card-body {
+  display: inline-block;
+}
+#show-staffs:hover {
   background-color: #00ffff;
   cursor: pointer;
 }
@@ -23,10 +30,6 @@
   font-weight: bold;
   margin: auto;
 }
-form input {
-  margin: 1%;
-}
-
 .row-header {
   margin: 0px auto;
   padding: 0px auto;
@@ -59,4 +62,25 @@ address {
 
 .navbar-dark {
   background-color: #512da8;
+}
+.show-table {
+  background-color: blueviolet;
+  padding: 20px;
+}
+.show-name {
+  color: whitesmoke;
+  font-size: xx-large;
+}
+.show-text {
+  color: beige;
+  font-size: large;
+  text-align: center;
+}
+.show-pay {
+  color: beige;
+  font-size: large;
+  margin-left: 15%;
+}
+.breadcrumb-item {
+  font-weight: bold;
 }
