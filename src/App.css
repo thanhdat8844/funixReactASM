@@ -19,7 +19,6 @@
   cursor: pointer;
 }
 #show-staff * {
-  margin: auto;
   background-color: #007fff;
   color: whitesmoke;
 }
@@ -82,5 +81,10 @@ address {
   margin-left: 15%;
 }
 .breadcrumb-item {
+  font-weight: bold;
+}
+#search-form {
+  font-size: large;
+  color: #007fff;
   font-weight: bold;
 }
