@@ -16,13 +16,15 @@ function RenderPayroll({ payroll }) {
   ).toFixed();
   return (
     <Card className="show-table">
-      <CardTitle className="show-name">{payroll.name}</CardTitle>
-      <div className="show-pay">
-        <CardText>Mã nhân viên: {payroll.id}</CardText>
-        <CardText>Hệ số lương: {payroll.salaryScale}</CardText>
-        <CardText>Số giờ làm thêm: {payroll.overTime}</CardText>
-        <CardText>Lương: {salary}</CardText>
-      </div>
+      <Link to={`/payroll/${payroll.id}`}>
+        <CardTitle className="show-name">{payroll.name}</CardTitle>
+        <div className="show-pay">
+          <CardText>Mã nhân viên: {payroll.id}</CardText>
+          <CardText>Hệ số lương: {payroll.salaryScale}</CardText>
+          <CardText>Số giờ làm thêm: {payroll.overTime}</CardText>
+          <CardText>Lương: {salary}</CardText>
+        </div>
+      </Link>
     </Card>
   );
 }
