@@ -88,3 +88,6 @@ address {
   color: #007fff;
   font-weight: bold;
 }
+.show-table:hover {
+  cursor: pointer;
+}

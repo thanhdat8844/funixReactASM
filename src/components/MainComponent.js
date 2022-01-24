@@ -5,8 +5,9 @@ import StaffList from "./StaffListComponent";
 import Header from "./HeaderComponent";
 import Footer from "./FooterComponent";
 import StaffInfo from "./StaffInformationComponent";
-import Department from "./DepartermentComponent";
+import Department from "./DepartmentComponent";
 import Payroll from "./PayrollComponent";
+import RenderDepDetail from "./DepDetailComponent";
 import { Switch, Route, Redirect } from "react-router-dom";
 
 class Main extends Component {
@@ -29,6 +30,21 @@ class Main extends Component {
         />
       );
     };
+    const DepDetailWithId = ({ match }) => {
+      console.log(match.params);
+      return (
+        <RenderDepDetail
+          dptm={
+            this.state.departments.filter(
+              (dptm) => dptm.id === match.params.dptmId
+            )[0]
+          }
+          staffs={this.state.staffs.filter(
+            (staff) => staff.department.id === match.params.dptmId
+          )}
+        />
+      );
+    };
     return (
       <div>
         <Header />
@@ -44,6 +60,7 @@ class Main extends Component {
             path="/department"
             component={() => <Department dptms={this.state.departments} />}
           />
+          <Route path="/department/:dptmId" component={DepDetailWithId} />
           <Route
             exact
             path="/payroll"

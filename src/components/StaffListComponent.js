@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 function StaffList({ staffs }) {
   const [searchStaff, setSearchStaff] = useState("");
   const handleChange = (e) => {
-    setSearchStaff(e.currentTarget.value);
+    setSearchStaff(e.target.value);
   };
   const filteredPersons = staffs
     .filter((person) =>
