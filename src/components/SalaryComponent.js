@@ -57,7 +57,7 @@ function Salary(props) {
               <BreadcrumbItem active>{props.staffs.name}</BreadcrumbItem>
             </Breadcrumb>
           </div>
-          <div className="container">
+          <div className="row">
             <RenderSalary staff={props.staffs} />
           </div>
         </div>
