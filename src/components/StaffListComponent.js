@@ -21,7 +21,7 @@ function StaffList({ staffs }) {
     )
     .map((staff) => {
       return (
-        <div key={staff.id} className="col-12 col-md-4 col-lg-2 p-1">
+        <div key={staff.id} className="col-6 col-md-4 col-lg-2 p-1">
           <Card id="show-staffs">
             <Link to={`/staff/${staff.id}`}>
               <CardImg width="100%" src={staff.image} alt={staff.name} />
