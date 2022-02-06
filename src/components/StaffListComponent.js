@@ -7,6 +7,7 @@ import {
   BreadcrumbItem,
 } from "reactstrap";
 import Search from "./SearchComponent";
+import AddStaff from "./AddStaffComponent";
 import { Link } from "react-router-dom";
 import { Component } from "react/cjs/react.production.min";
 class StaffList extends Component {
@@ -14,15 +15,21 @@ class StaffList extends Component {
     super(props);
     this.state = {
       searchName: "",
+      newStaff: {},
     };
     this.handleSearch = this.handleSearch.bind(this);
+    this.handAddStaff = this.handAddStaff.bind(this);
   }
   handleSearch(value) {
     this.setState({
       searchName: value,
     });
   }
-
+  handAddStaff(staff) {
+    this.setState({
+      newStaff: staff,
+    });
+  }
   render() {
     const staffslist = this.props.staffs
       .filter((staff) =>
@@ -48,6 +55,7 @@ class StaffList extends Component {
               <Link to="/staff">Nhân viên</Link>
             </BreadcrumbItem>
           </Breadcrumb>
+          <AddStaff onClickAdd={this.handAddStaff} staffs={this.props.staffs} />
           <Search onClickSearch={this.handleSearch} />
           <div className="container">
             <div className="row">{staffslist}</div>

@@ -8,16 +8,16 @@ class Search extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleSubmit(event) {
-    console.log(this.search.value);
     this.props.onClickSearch(this.search.value);
     event.preventDefault();
   }
   render() {
     return (
-      <div className="pt-2 ml-auto">
+      <div className="ml-auto">
         <Form inline onSubmit={this.handleSubmit}>
           <Label htmlFor="search" />
           <Input
+            className="col-9"
             type="text"
             size="30"
             placeholder="Tìm tên nhân viên"

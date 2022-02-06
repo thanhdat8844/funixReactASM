@@ -91,3 +91,6 @@ address {
 .show-table:hover {
   cursor: pointer;
 }
+#add-staff {
+  font-weight: bold;
+}
