@@ -37,6 +37,7 @@ class AddStaff extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handBlur = this.handBlur.bind(this);
+    this.handleClear = this.handleClear.bind(this);
   }
 
   toggleModal() {
@@ -49,6 +50,45 @@ class AddStaff extends Component {
       touched: { ...this.state.touched, [field]: true },
     });
   };
+  handleChange(event) {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+    this.setState({
+      [name]: value,
+    });
+  }
+  handleSubmit(event) {
+    this.toggleModal();
+    event.preventDefault();
+    const newStaff = {
+      id: this.props.staffs.length,
+      name: this.state.name,
+      doB: this.state.doB,
+      salaryScale: this.state.salaryScale,
+      startDate: this.state.startDate,
+      department: this.depInfo(this.state.department),
+      annualLeave: this.state.annualLeave,
+      overTime: this.state.overTime,
+      image: this.state.image,
+    };
+    this.state.staffs.push(newStaff);
+    this.props.onClickAdd(newStaff);
+    console.log(this.state.staffs);
+    this.handleClear();
+  }
+  handleClear() {
+    this.setState({
+      id: "",
+      name: "",
+      doB: "",
+      salaryScale: 1,
+      startDate: "",
+      department: "Sale",
+      annualLeave: 0,
+      overTime: 0,
+    });
+  }
 
   validate(name, doB, startDate, salaryScale, annualLeave, overTime) {
     const errors = {
@@ -92,32 +132,7 @@ class AddStaff extends Component {
     }
     return errors;
   }
-  handleChange(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    this.setState({
-      [name]: value,
-    });
-  }
-  handleSubmit(event) {
-    this.toggleModal();
-    event.preventDefault();
-    const newStaff = {
-      id: this.props.staffs.length,
-      name: this.state.name,
-      doB: this.state.doB,
-      salaryScale: this.state.salaryScale,
-      startDate: this.state.startDate,
-      department: this.depInfo(this.state.department),
-      annualLeave: this.state.annualLeave,
-      overTime: this.state.overTime,
-      image: this.state.image,
-    };
-    this.state.staffs.push(newStaff);
-    this.props.onClickAdd(newStaff);
-    console.log(this.state.staffs);
-  }
+
   depInfo(dep) {
     switch (dep) {
       default:
