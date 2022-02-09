@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import {
   Label,
   Col,
-  Input,
-  Form,
   FormGroup,
   Modal,
   ModalHeader,
@@ -11,32 +9,22 @@ import {
   Button,
   Row,
 } from "reactstrap";
-import { Control, LocalForm, Erros } from "react-redux-form";
+import { Control, LocalForm, Errors } from "react-redux-form";
+
+const required = (val) => val && val.length;
+const maxLength = (len) => (val) => !val || val.length < len;
+const minLength = (len) => (val) => val && val.length > len;
+const isNumber = (val) => !isNaN(Number(val));
 
 class AddStaff extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isModalOpen: false,
-      id: "",
-      name: "",
-      doB: "",
-      salaryScale: 1,
-      startDate: "",
-      department: "Sale",
-      annualLeave: 0,
-      overTime: 0,
-      image: "/assets/images/alberto.png",
       staffs: this.props.staffs,
-      touched: {
-        name: false,
-        doB: false,
-        startDate: false,
-      },
     };
     this.toggleModal = this.toggleModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleClear = this.handleClear.bind(this);
   }
 
   toggleModal() {
@@ -56,24 +44,12 @@ class AddStaff extends Component {
       department: this.depInfo(values.department),
       annualLeave: values.annualLeave,
       overTime: values.overTime,
-      image: values.image,
+      image: "/assets/images/alberto.png",
     };
     this.state.staffs.push(newStaff);
     this.props.onClickAdd(newStaff);
-    this.handleClear();
   }
-  handleClear() {
-    this.setState({
-      id: "",
-      name: "",
-      doB: "",
-      salaryScale: 1,
-      startDate: "",
-      department: "Sale",
-      annualLeave: 0,
-      overTime: 0,
-    });
-  }
+
   depInfo(dep) {
     switch (dep) {
       default:
@@ -134,6 +110,19 @@ class AddStaff extends Component {
                     id="name"
                     name="name"
                     className="form-control"
+                    validators={{
+                      minLength: minLength(2),
+                      maxLength: maxLength(30),
+                    }}
+                  />
+                  <Errors
+                    className="text-danger"
+                    model=".name"
+                    show="touched"
+                    messages={{
+                      minLength: "Yêu cầu nhập nhiều hơn 2 ký tự",
+                      maxLength: "Yêu cầu nhập ít hơn 30 ký tự",
+                    }}
                   />
                 </Col>
               </Row>
@@ -149,6 +138,17 @@ class AddStaff extends Component {
                     name="doB"
                     pattern="\d{2}-\d{2}-d{4}"
                     className="form-control"
+                    validators={{
+                      required,
+                    }}
+                  />
+                  <Errors
+                    className="text-danger"
+                    model=".doB"
+                    show="touched"
+                    messages={{
+                      required: "Yêu cầu nhập",
+                    }}
                   />
                 </Col>
               </Row>
@@ -164,6 +164,17 @@ class AddStaff extends Component {
                     name="startDate"
                     pattern="\d{2}-\d{2}-d{4}"
                     className="form-control"
+                    validators={{
+                      required,
+                    }}
+                  />
+                  <Errors
+                    className="text-danger"
+                    model=".startDate"
+                    show="touched"
+                    messages={{
+                      required: "Yêu cầu nhập",
+                    }}
                   />
                 </Col>
               </Row>
@@ -176,7 +187,7 @@ class AddStaff extends Component {
                     model=".department"
                     id="department"
                     name="department"
-                    defaultValue={this.state.department}
+                    defaultValue="Sale"
                   >
                     <option>Sale</option>
                     <option>HR</option>
@@ -195,8 +206,19 @@ class AddStaff extends Component {
                     model=".salaryScale"
                     id="salaryScale"
                     name="salaryScale"
-                    defaultValue={this.state.salaryScale}
+                    defaultValue="1"
                     placeHolder="1.0 -> 3.0"
+                    validators={{
+                      isNumber,
+                    }}
+                  />
+                  <Errors
+                    className="text-danger"
+                    model=".salaryScale"
+                    show="touched"
+                    messages={{
+                      isNumber: "Yêu cầu nhập bằng số",
+                    }}
                   />
                 </Col>
               </Row>
@@ -209,7 +231,18 @@ class AddStaff extends Component {
                     model=".annualLeave"
                     id="annualLeave"
                     name="annualLeave"
-                    defaultValue={this.state.annualLeave}
+                    defaultValue="0"
+                    validators={{
+                      isNumber,
+                    }}
+                  />
+                  <Errors
+                    className="text-danger"
+                    model=".annualLeave"
+                    show="touched"
+                    messages={{
+                      isNumber: "Yêu cầu nhập bằng số",
+                    }}
                   />
                 </Col>
               </Row>
@@ -222,7 +255,18 @@ class AddStaff extends Component {
                     model=".overTime"
                     id="overTime"
                     name="overTime"
-                    defaultValue={this.state.overTime}
+                    defaultValue="0"
+                    validators={{
+                      isNumber,
+                    }}
+                  />
+                  <Errors
+                    className="text-danger"
+                    model=".overTime"
+                    show="touched"
+                    messages={{
+                      isNumber: "Yêu cầu nhập bằng số",
+                    }}
                   />
                 </Col>
               </Row>
