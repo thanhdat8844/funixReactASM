@@ -16,6 +16,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import { Loading } from "./LoadingComponent";
 import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
 
@@ -34,7 +35,7 @@ function RenderDish({ dish }) {
     return <div></div>;
   }
 }
-function RenderComments({ cmt, postComment, dishId }) {
+function RenderComments({ cmt, addComment, dishId }) {
   if (cmt != null) {
     return (
       <div className="col-12 col-md-5 m-1">
@@ -54,7 +55,7 @@ function RenderComments({ cmt, postComment, dishId }) {
             </li>
           </ul>
         ))}
-        <CommentForm />
+        <CommentForm dishId={dishId} addComment={addComment} />
       </div>
     );
   } else {
@@ -84,8 +85,12 @@ class CommentForm extends Component {
 
   handleSubmit(values) {
     this.toggleModal();
-    console.log("Current State is: " + JSON.stringify(values));
-    alert("Current State is: " + JSON.stringify(values));
+    this.props.addComment(
+      this.props.dishId,
+      values.rating,
+      values.author,
+      values.comment
+    );
   }
 
   render() {
@@ -161,7 +166,23 @@ class CommentForm extends Component {
 }
 
 const DishDetail = (props) => {
-  if (props.dish) {
+  if (props.isLoading) {
+    return (
+      <div className="container">
+        <div className="row">
+          <Loading />
+        </div>
+      </div>
+    );
+  } else if (props.errMess) {
+    return (
+      <div className="container">
+        <div className="row">
+          <h4>{props.errMess}</h4>
+        </div>
+      </div>
+    );
+  } else if (props.dish != null) {
     return (
       <div className="container">
         <div className="row">
@@ -178,7 +199,11 @@ const DishDetail = (props) => {
         </div>
         <div className="row">
           <RenderDish dish={props.dish} />
-          <RenderComments cmt={props.comments} />
+          <RenderComments
+            cmt={props.comments}
+            addComment={props.addComment}
+            dishId={props.dish.id}
+          />
         </div>
       </div>
     );
