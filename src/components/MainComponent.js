@@ -74,7 +74,13 @@ class Main extends Component {
           <Route
             exact
             path="/staff"
-            component={() => <StaffList staffs={this.props.staffs.staffs} />}
+            component={() => (
+              <StaffList
+                staffs={this.props.staffs.staffs}
+                isLoading={this.props.staffs.isLoading}
+                errMess={this.props.staffs.errMess}
+              />
+            )}
           />
           <Route path="/staff/:staffId" component={StaffWithId} />
           <Route

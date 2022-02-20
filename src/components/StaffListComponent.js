@@ -10,6 +10,8 @@ import Search from "./SearchComponent";
 import AddStaff from "./AddStaffComponent";
 import { Link } from "react-router-dom";
 import { Component } from "react/cjs/react.production.min";
+import { Loading } from "./LoadingComponent";
+
 class StaffList extends Component {
   constructor(props) {
     super(props);
@@ -47,22 +49,43 @@ class StaffList extends Component {
           </div>
         );
       });
-    return (
-      <div className="container">
-        <div className="row">
-          <Breadcrumb>
-            <BreadcrumbItem active>
-              <Link to="/staff">Nhân viên</Link>
-            </BreadcrumbItem>
-          </Breadcrumb>
-          <AddStaff onClickAdd={this.handAddStaff} staffs={this.props.staffs} />
-          <Search onClickSearch={this.handleSearch} />
-          <div className="container">
-            <div className="row">{staffslist}</div>
+    if (this.props.isLoading) {
+      return (
+        <div className="container">
+          <div className="row">
+            <Loading />
           </div>
         </div>
-      </div>
-    );
+      );
+    } else if (this.props.errMess) {
+      return (
+        <div className="container">
+          <div className="row">
+            <h4>{this.props.errMess}</h4>
+          </div>
+        </div>
+      );
+    } else if (this.props.staffs) {
+      return (
+        <div className="container">
+          <div className="row">
+            <Breadcrumb>
+              <BreadcrumbItem active>
+                <Link to="/staff">Nhân viên</Link>
+              </BreadcrumbItem>
+            </Breadcrumb>
+            <AddStaff
+              onClickAdd={this.handAddStaff}
+              staffs={this.props.staffs}
+            />
+            <Search onClickSearch={this.handleSearch} />
+            <div className="container">
+              <div className="row">{staffslist}</div>
+            </div>
+          </div>
+        </div>
+      );
+    }
   }
 }
 export default StaffList;
