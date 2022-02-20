@@ -128,7 +128,7 @@ function Main(props) {
           }
         />
         <Route path="/payroll/:staffId" element={<SalaryWithId />} />
-        <Route path="*" element={<Navigate to="/staffs" />} />
+        <Route path="*" element={<Navigate to="/staff" />} />
       </Routes>
       <Footer />
     </div>
