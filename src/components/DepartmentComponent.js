@@ -7,6 +7,7 @@ import {
   BreadcrumbItem,
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import { Loading } from "./LoadingComponent";
 
 function RenderDepartment({ dptm }) {
   return (
@@ -28,17 +29,35 @@ function Department(props) {
       </div>
     );
   });
-  return (
-    <div className="container">
-      <div className="row">
-        <Breadcrumb>
-          <BreadcrumbItem active>
-            <Link to="/department">Phòng ban</Link>
-          </BreadcrumbItem>
-        </Breadcrumb>
+  if (props.isLoading) {
+    return (
+      <div className="container">
+        <div className="row">
+          <Loading />
+        </div>
       </div>
-      <div className="row">{dptms}</div>
-    </div>
-  );
+    );
+  } else if (props.errMess) {
+    return (
+      <div className="container">
+        <div className="row">
+          <h4>{props.errMess}</h4>
+        </div>
+      </div>
+    );
+  } else if (props.dptms) {
+    return (
+      <div className="container">
+        <div className="row">
+          <Breadcrumb>
+            <BreadcrumbItem active>
+              <Link to="/department">Phòng ban</Link>
+            </BreadcrumbItem>
+          </Breadcrumb>
+        </div>
+        <div className="row">{dptms}</div>
+      </div>
+    );
+  }
 }
 export default Department;

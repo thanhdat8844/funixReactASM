@@ -2,8 +2,9 @@ import React from "react";
 import { Media, Breadcrumb, BreadcrumbItem } from "reactstrap";
 import dateFormat from "dateformat";
 import { Link } from "react-router-dom";
+import { Loading } from "./LoadingComponent";
 
-function RenderStaff({ staff }) {
+function RenderStaff({ staff, dptm }) {
   if (staff != null) {
     return (
       <div key={staff.id}>
@@ -17,7 +18,7 @@ function RenderStaff({ staff }) {
             <Media heading>Họ và tên: {staff.name}</Media>
             <p>Ngày sinh: {dateFormat(staff.doB, "dd/mm/yyyy")}</p>
             <p>Ngày vào công ty: {dateFormat(staff.startDate, "dd/mm/yyyy")}</p>
-            <p>Phòng ban: {staff.department.name}</p>
+            <p>Phòng ban: {dptm.name}</p>
             <p>Số ngày nghỉ còn lại: {staff.annualLeave}</p>
             <p>Số giờ đã làm thêm: {staff.overTime}</p>
           </Media>
@@ -29,7 +30,10 @@ function RenderStaff({ staff }) {
   }
 }
 const StaffInfo = (props) => {
-  if (props.staff) {
+  if (props.staff && props.departments[0]) {
+    const dptm = props.departments.filter(
+      (dep) => dep.id === props.staff.departmentId
+    )[0];
     return (
       <div className="container">
         <div className="row">
@@ -45,12 +49,12 @@ const StaffInfo = (props) => {
           </div>
         </div>
         <div className="container">
-          <RenderStaff staff={props.staff} />
+          <RenderStaff staff={props.staff} dptm={dptm} />
         </div>
       </div>
     );
   } else {
-    return <div></div>;
+    return <Loading />;
   }
 };
 export default StaffInfo;
