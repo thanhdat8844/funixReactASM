@@ -2,24 +2,14 @@ import React, { Component } from "react";
 import { Modal, ModalHeader, ModalBody, Button } from "reactstrap";
 import StaffForm from "./StaffFormComponent";
 
-class AddStaff extends Component {
+class EditStaff extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isModalOpen: false,
-      staffs: this.props.staffs,
-      staff: {
-        name: "",
-        doB: "",
-        salaryScale: 1.0,
-        startDate: "",
-        department: "Sale",
-        annualLeave: 0,
-        overTime: 0,
-      },
     };
     this.toggleModal = this.toggleModal.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleEditStaff = this.handleEditStaff.bind(this);
   }
 
   toggleModal() {
@@ -27,10 +17,10 @@ class AddStaff extends Component {
       isModalOpen: !this.state.isModalOpen,
     });
   }
-  handleSubmit(values) {
+  handleEditStaff(values) {
     this.toggleModal();
-    const newStaff = {
-      id: this.props.staffs.length,
+    const staff = {
+      id: this.props.staff.id,
       name: values.name,
       doB: values.doB,
       salaryScale: values.salaryScale,
@@ -40,8 +30,9 @@ class AddStaff extends Component {
       overTime: values.overTime,
       image: "/assets/images/alberto.png",
     };
-    this.props.postAddStaff(newStaff);
+    this.props.patchEditStaff(staff);
   }
+
   depInfo(dep) {
     switch (dep) {
       default:
@@ -80,20 +71,17 @@ class AddStaff extends Component {
   render() {
     return (
       <div className="m-2">
-        <Button
-          id="add-staff"
-          outline
-          onClick={this.toggleModal}
-          color="primary"
-        >
-          <span className="fa fa-plus"></span>Thêm
+        <Button onClick={this.toggleModal} className="btn btn-primary col-12">
+          <span className="fa fa-pencil"></span>Sửa
         </Button>
         <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-          <ModalHeader toggle={this.toggleModal}>Thêm nhân viên</ModalHeader>
+          <ModalHeader toggle={this.toggleModal}>
+            Cập nhật thông tin nhân viên
+          </ModalHeader>
           <ModalBody>
             <StaffForm
-              staff={this.state.staff}
-              handleSubmit={this.handleSubmit}
+              staff={this.props.staff}
+              handleSubmit={this.handleEditStaff}
             />
           </ModalBody>
         </Modal>
@@ -101,4 +89,4 @@ class AddStaff extends Component {
     );
   }
 }
-export default AddStaff;
+export default EditStaff;

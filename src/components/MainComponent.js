@@ -15,6 +15,8 @@ import {
   fetchStaffsInDptm,
   fetchSalary,
   postAddStaff,
+  patchEditStaff,
+  deleteStaff,
 } from "../redux/ActionCreator";
 
 const mapStateToProps = (state) => {
@@ -40,6 +42,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   postAddStaff: (staff) => {
     dispatch(postAddStaff(staff));
+  },
+  patchEditStaff: (staff) => {
+    dispatch(patchEditStaff(staff));
+  },
+  deleteStaff: (id) => {
+    dispatch(deleteStaff(id));
   },
 });
 
@@ -105,6 +113,8 @@ function Main(props) {
               isLoading={props.staffs.isLoading}
               errMess={props.staffs.errMess}
               postAddStaff={props.postAddStaff}
+              patchEditStaff={props.patchEditStaff}
+              deleteStaff={props.deleteStaff}
             />
           }
         />

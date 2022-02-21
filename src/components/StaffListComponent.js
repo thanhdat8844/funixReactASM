@@ -5,9 +5,11 @@ import {
   CardImg,
   Breadcrumb,
   BreadcrumbItem,
+  Button,
 } from "reactstrap";
 import Search from "./SearchComponent";
 import AddStaff from "./AddStaffComponent";
+import EditStaff from "./EditStaffComponent";
 import { Link } from "react-router-dom";
 import { Component } from "react/cjs/react.production.min";
 import { Loading } from "./LoadingComponent";
@@ -19,11 +21,20 @@ class StaffList extends Component {
       searchName: "",
     };
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
   handleSearch(value) {
     this.setState({
       searchName: value,
     });
+  }
+  handleDelete(staff) {
+    const isDelete = window.confirm(
+      "Xác nhận xóa nhân viên " + staff.name + "?"
+    );
+    if (isDelete) {
+      this.props.deleteStaff(staff.id);
+    }
   }
 
   render() {
@@ -37,8 +48,18 @@ class StaffList extends Component {
             <Card id="show-staffs">
               <Link to={`/staff/${staff.id}`}>
                 <CardImg width="100%" src={staff.image} alt={staff.name} />
-                <CardTitle>{staff.name}</CardTitle>
               </Link>
+              <CardTitle>{staff.name}</CardTitle>
+              <EditStaff
+                staff={staff}
+                patchEditStaff={this.props.patchEditStaff}
+              />
+              <Button
+                className="btn btn-danger"
+                onClick={() => this.handleDelete(staff)}
+              >
+                <span className="fa fa-trash"></span> Xóa
+              </Button>
             </Card>
           </div>
         );

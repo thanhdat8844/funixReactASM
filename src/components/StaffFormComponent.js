@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Label, Col, FormGroup, Button, Row } from "reactstrap";
 import { Control, LocalForm, Errors } from "react-redux-form";
+import dateFormat from "dateformat";
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !val || val.length < len;
@@ -8,6 +9,7 @@ const minLength = (len) => (val) => val && val.length > len;
 const isNumber = (val) => !isNaN(Number(val));
 
 function StaffForm(props) {
+  const staff = props.staff;
   return (
     <LocalForm onSubmit={(values) => props.handleSubmit(values)}>
       <Row className="form-group">
@@ -20,6 +22,7 @@ function StaffForm(props) {
             id="name"
             name="name"
             className="form-control"
+            defaultValue={staff.name}
             validators={{
               minLength: minLength(2),
               maxLength: maxLength(30),
@@ -48,6 +51,7 @@ function StaffForm(props) {
             name="doB"
             pattern="\d{2}-\d{2}-d{4}"
             className="form-control"
+            defaultValue={dateFormat(staff.doB, "yyyy-mm-dd")}
             validators={{
               required,
             }}
@@ -74,6 +78,7 @@ function StaffForm(props) {
             name="startDate"
             pattern="\d{2}-\d{2}-d{4}"
             className="form-control"
+            defaultValue={dateFormat(staff.startDate, "yyyy-mm-dd")}
             validators={{
               required,
             }}
@@ -97,7 +102,7 @@ function StaffForm(props) {
             model=".department"
             id="department"
             name="department"
-            defaultValue="Sale"
+            defaultValue={staff.department}
           >
             <option>Sale</option>
             <option>HR</option>
@@ -116,7 +121,7 @@ function StaffForm(props) {
             model=".salaryScale"
             id="salaryScale"
             name="salaryScale"
-            defaultValue="1"
+            defaultValue={staff.salaryScale}
             placeHolder="1.0 -> 3.0"
             validators={{
               isNumber,
@@ -141,7 +146,7 @@ function StaffForm(props) {
             model=".annualLeave"
             id="annualLeave"
             name="annualLeave"
-            defaultValue="0"
+            defaultValue={staff.annualLeave}
             validators={{
               isNumber,
             }}
@@ -165,7 +170,7 @@ function StaffForm(props) {
             model=".overTime"
             id="overTime"
             name="overTime"
-            defaultValue="0"
+            defaultValue={staff.overTime}
             validators={{
               isNumber,
             }}

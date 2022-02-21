@@ -198,3 +198,56 @@ export const postAddStaff = (staff) => (dispatch) => {
       alert("Error " + error.message);
     });
 };
+
+//Edit Staff Info
+export const patchEditStaff = (staff) => (dispatch) => {
+  dispatch(staffsLoading(true));
+  const editedStaff = {
+    id: staff.id,
+    name: staff.name,
+    doB: staff.doB,
+    salaryScale: staff.salaryScale,
+    startDate: staff.startDate,
+    departmentId: staff.department.id,
+    annualLeave: staff.annualLeave,
+    overTime: staff.overTime,
+    image: staff.image,
+  };
+  return fetch(baseUrl + "staffs", {
+    method: "PATCH",
+    body: JSON.stringify(editedStaff),
+    headers: {
+      "Content-type": "application/json",
+    },
+    credentials: "same-origin",
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + " : " + response.statusText
+          );
+          error.message = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((response) => dispatch(addStaffs(response)))
+    .catch((error) => {
+      console.log("EDIT STAFF ERROR ", error.message);
+      alert("Error " + error.message);
+    });
+};
+
+// Delete Staff
+export const deleteStaff = (id) => ({
+  type: ActionTypes.DELETE_STAFF,
+  payload: id,
+});
