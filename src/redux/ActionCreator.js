@@ -1,6 +1,7 @@
 import * as ActionTypes from "./ActionTypes";
 import { baseUrl } from "../shared/baseUrl";
 
+//Fetch Staffs
 export const fetchStaffs = () => (dispatch) => {
   dispatch(staffsLoading(true));
   return fetch(baseUrl + "staffs")
@@ -37,6 +38,7 @@ export const addStaffs = (staffs) => ({
   payload: staffs,
 });
 
+//Fetch Departments
 export const fetchDptms = () => (dispatch) => {
   dispatch(dptmsLoading(true));
   return fetch(baseUrl + "departments")
@@ -109,6 +111,7 @@ export const addStaffsInDptm = (staff) => ({
   payload: staff,
 });
 
+//Fetch Salary
 export const fetchSalary = () => (dispatch) => {
   dispatch(salaryLoading(true));
   return fetch(baseUrl + "staffsSalary")
@@ -144,3 +147,54 @@ export const addSalary = (staffs) => ({
   type: ActionTypes.ADD_SALARY,
   payload: staffs,
 });
+
+//Fetch AddNewStaff
+export const addStaff = (staff) => ({
+  type: ActionTypes.ADD_STAFF,
+  payload: staff,
+});
+export const postAddStaff = (staff) => (dispatch) => {
+  dispatch(staffsLoading(true));
+  const newStaff = {
+    id: staff.id,
+    name: staff.name,
+    doB: staff.doB,
+    salaryScale: staff.salaryScale,
+    startDate: staff.startDate,
+    departmentId: staff.department.id,
+    annualLeave: staff.annualLeave,
+    overTime: staff.overTime,
+    image: staff.image,
+  };
+  return fetch(baseUrl + "staffs", {
+    method: "POST",
+    body: JSON.stringify(newStaff),
+    headers: {
+      "Content-type": "application/json",
+    },
+    credentials: "same-origin",
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.message = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((response) => dispatch(addStaffs(response)))
+    .catch((error) => {
+      console.log("Post Add Staff ", error.message);
+      alert("Error " + error.message);
+    });
+};

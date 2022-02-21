@@ -17,21 +17,15 @@ class StaffList extends Component {
     super(props);
     this.state = {
       searchName: "",
-      newStaff: {},
     };
     this.handleSearch = this.handleSearch.bind(this);
-    this.handAddStaff = this.handAddStaff.bind(this);
   }
   handleSearch(value) {
     this.setState({
       searchName: value,
     });
   }
-  handAddStaff(staff) {
-    this.setState({
-      newStaff: staff,
-    });
-  }
+
   render() {
     const staffslist = this.props.staffs
       .filter((staff) =>
@@ -75,7 +69,7 @@ class StaffList extends Component {
               </BreadcrumbItem>
             </Breadcrumb>
             <AddStaff
-              onClickAdd={this.handAddStaff}
+              postAddStaff={this.props.postAddStaff}
               staffs={this.props.staffs}
             />
             <Search onClickSearch={this.handleSearch} />

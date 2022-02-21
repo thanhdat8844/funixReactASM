@@ -14,6 +14,7 @@ import {
   fetchDptms,
   fetchStaffsInDptm,
   fetchSalary,
+  postAddStaff,
 } from "../redux/ActionCreator";
 
 const mapStateToProps = (state) => {
@@ -36,6 +37,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   fetchSalary: () => {
     dispatch(fetchSalary());
+  },
+  postAddStaff: (staff) => {
+    dispatch(postAddStaff(staff));
   },
 });
 
@@ -100,6 +104,7 @@ function Main(props) {
               staffs={props.staffs.staffs}
               isLoading={props.staffs.isLoading}
               errMess={props.staffs.errMess}
+              postAddStaff={props.postAddStaff}
             />
           }
         />
