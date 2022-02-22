@@ -13,6 +13,7 @@ import EditStaff from "./EditStaffComponent";
 import { Link } from "react-router-dom";
 import { Component } from "react/cjs/react.production.min";
 import { Loading } from "./LoadingComponent";
+import { FadeTransform } from "react-animation-components";
 
 class StaffList extends Component {
   constructor(props) {
@@ -33,7 +34,7 @@ class StaffList extends Component {
       "Xác nhận xóa nhân viên " + staff.name + "?"
     );
     if (isDelete) {
-      this.props.deleteStaff(staff.id);
+      this.props.handleDeleteStaff(staff.id);
     }
   }
 
@@ -45,22 +46,29 @@ class StaffList extends Component {
       .map((staff) => {
         return (
           <div key={staff.id} className="col-6 col-md-4 col-lg-2 p-1">
-            <Card id="show-staffs">
-              <Link to={`/staff/${staff.id}`}>
-                <CardImg width="100%" src={staff.image} alt={staff.name} />
-              </Link>
-              <CardTitle>{staff.name}</CardTitle>
-              <EditStaff
-                staff={staff}
-                patchEditStaff={this.props.patchEditStaff}
-              />
-              <Button
-                className="btn btn-danger"
-                onClick={() => this.handleDelete(staff)}
-              >
-                <span className="fa fa-trash"></span> Xóa
-              </Button>
-            </Card>
+            <FadeTransform
+              in
+              transformProps={{
+                exitTransform: "scale(0.5) translateY(-50%)",
+              }}
+            >
+              <Card id="show-staffs">
+                <Link to={`/staff/${staff.id}`}>
+                  <CardImg width="100%" src={staff.image} alt={staff.name} />
+                </Link>
+                <CardTitle>{staff.name}</CardTitle>
+                <EditStaff
+                  staff={staff}
+                  patchEditStaff={this.props.patchEditStaff}
+                />
+                <Button
+                  className="btn btn-danger"
+                  onClick={() => this.handleDelete(staff)}
+                >
+                  <span className="fa fa-trash"></span> Xóa
+                </Button>
+              </Card>
+            </FadeTransform>
           </div>
         );
       });

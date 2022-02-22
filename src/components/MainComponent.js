@@ -7,7 +7,13 @@ import Department from "./DepartmentComponent";
 import Payroll from "./PayrollComponent";
 import RenderDepDetail from "./DepDetailComponent";
 import Salary from "./SalaryComponent";
-import { Routes, Route, useParams, Navigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useParams,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 import { connect } from "react-redux";
 import {
   fetchStaffs,
@@ -16,8 +22,9 @@ import {
   fetchSalary,
   postAddStaff,
   patchEditStaff,
-  deleteStaff,
+  handleDeleteStaff,
 } from "../redux/ActionCreator";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 const mapStateToProps = (state) => {
   return {
@@ -46,8 +53,8 @@ const mapDispatchToProps = (dispatch) => ({
   patchEditStaff: (staff) => {
     dispatch(patchEditStaff(staff));
   },
-  deleteStaff: (id) => {
-    dispatch(deleteStaff(id));
+  handleDeleteStaff: (id) => {
+    dispatch(handleDeleteStaff(id));
   },
 });
 
@@ -59,6 +66,8 @@ function Main(props) {
     props.fetchSalary();
     props.fetchStaffsInDptm(dptmId);
   }, [dptmId]);
+
+  const location = useLocation();
   const StaffWithId = () => {
     const params = useParams();
     return (
@@ -103,48 +112,52 @@ function Main(props) {
   return (
     <div>
       <Header />
-      <Routes>
-        <Route
-          exact
-          path="/staff"
-          element={
-            <StaffList
-              staffs={props.staffs.staffs}
-              isLoading={props.staffs.isLoading}
-              errMess={props.staffs.errMess}
-              postAddStaff={props.postAddStaff}
-              patchEditStaff={props.patchEditStaff}
-              deleteStaff={props.deleteStaff}
+      <TransitionGroup>
+        <CSSTransition key={location.key} classNames="page" timeout={300}>
+          <Routes>
+            <Route
+              exact
+              path="/staff"
+              element={
+                <StaffList
+                  staffs={props.staffs.staffs}
+                  isLoading={props.staffs.isLoading}
+                  errMess={props.staffs.errMess}
+                  postAddStaff={props.postAddStaff}
+                  patchEditStaff={props.patchEditStaff}
+                  handleDeleteStaff={props.handleDeleteStaff}
+                />
+              }
             />
-          }
-        />
-        <Route path="/staff/:staffId" element={<StaffWithId />} />
-        <Route
-          exact
-          path="/department"
-          element={
-            <Department
-              dptms={props.departments.departments}
-              isLoading={props.departments.isLoading}
-              errMess={props.departments.errMess}
+            <Route path="/staff/:staffId" element={<StaffWithId />} />
+            <Route
+              exact
+              path="/department"
+              element={
+                <Department
+                  dptms={props.departments.departments}
+                  isLoading={props.departments.isLoading}
+                  errMess={props.departments.errMess}
+                />
+              }
             />
-          }
-        />
-        <Route path="/department/:dptmId" element={<DepDetailWithId />} />
-        <Route
-          exact
-          path="/payroll"
-          element={
-            <Payroll
-              payrolls={props.salary.salary}
-              isLoading={props.salary.isLoading}
-              errMess={props.salary.errMess}
+            <Route path="/department/:dptmId" element={<DepDetailWithId />} />
+            <Route
+              exact
+              path="/payroll"
+              element={
+                <Payroll
+                  payrolls={props.salary.salary}
+                  isLoading={props.salary.isLoading}
+                  errMess={props.salary.errMess}
+                />
+              }
             />
-          }
-        />
-        <Route path="/payroll/:staffId" element={<SalaryWithId />} />
-        <Route path="*" element={<Navigate to="/staff" />} />
-      </Routes>
+            <Route path="/payroll/:staffId" element={<SalaryWithId />} />
+            <Route path="*" element={<Navigate to="/staff" />} />
+          </Routes>
+        </CSSTransition>
+      </TransitionGroup>
       <Footer />
     </div>
   );

@@ -8,6 +8,7 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { Loading } from "./LoadingComponent";
+import { FadeTransform } from "react-animation-components";
 
 function RenderDepartment({ dptm }) {
   return (
@@ -25,7 +26,14 @@ function Department(props) {
   const dptms = props.dptms.map((dptm) => {
     return (
       <div key={dptm.id} className="col-12 col-md-6 col-lg-4 p-1">
-        <RenderDepartment dptm={dptm} />
+        <FadeTransform
+          in
+          transformProps={{
+            exitTransform: "scale(0.5) translateY(-50%)",
+          }}
+        >
+          <RenderDepartment dptm={dptm} />
+        </FadeTransform>
       </div>
     );
   });

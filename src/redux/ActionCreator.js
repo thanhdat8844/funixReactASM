@@ -166,6 +166,7 @@ export const postAddStaff = (staff) => (dispatch) => {
     overTime: staff.overTime,
     image: staff.image,
   };
+  dispatch(addStaff(newStaff));
   return fetch(baseUrl + "staffs", {
     method: "POST",
     body: JSON.stringify(newStaff),
@@ -200,6 +201,10 @@ export const postAddStaff = (staff) => (dispatch) => {
 };
 
 //Edit Staff Info
+export const editStaff = () => ({
+  type: ActionTypes.EDIT_STAFF,
+});
+
 export const patchEditStaff = (staff) => (dispatch) => {
   dispatch(staffsLoading(true));
   const editedStaff = {
@@ -213,6 +218,7 @@ export const patchEditStaff = (staff) => (dispatch) => {
     overTime: staff.overTime,
     image: staff.image,
   };
+  dispatch(editStaff());
   return fetch(baseUrl + "staffs", {
     method: "PATCH",
     body: JSON.stringify(editedStaff),
@@ -247,7 +253,40 @@ export const patchEditStaff = (staff) => (dispatch) => {
 };
 
 // Delete Staff
-export const deleteStaff = (id) => ({
+export const deleteStaff = () => ({
   type: ActionTypes.DELETE_STAFF,
-  payload: id,
 });
+export const handleDeleteStaff = (id) => (dispatch) => {
+  dispatch(staffsLoading(true));
+  dispatch(deleteStaff());
+  return fetch(baseUrl + "staffs/" + id, {
+    method: "DELETE",
+    headers: {
+      "Content-type": "application/json",
+    },
+    credentials: "same-origin",
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + " : " + response.statusText
+          );
+          error.message = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((response) => dispatch(addStaffs(response)))
+    .catch((error) => {
+      console.log("DELETE STAFF ERROR ", error.message);
+      alert("Error " + error.message);
+    });
+};

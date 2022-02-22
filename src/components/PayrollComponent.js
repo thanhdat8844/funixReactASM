@@ -8,19 +8,28 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { Loading } from "./LoadingComponent";
+import { FadeTransform } from "react-animation-components";
+
 function RenderPayroll({ payroll }) {
   return (
-    <Card className="show-table" key={payroll.id}>
-      <Link to={`/payroll/${payroll.id}`}>
-        <CardTitle className="show-name">{payroll.name}</CardTitle>
-        <div className="show-pay">
-          <CardText>Mã nhân viên: {payroll.id}</CardText>
-          <CardText>Hệ số lương: {payroll.salaryScale}</CardText>
-          <CardText>Số giờ làm thêm: {payroll.overTime}</CardText>
-          <CardText>Lương: {payroll.salary}</CardText>
-        </div>
-      </Link>
-    </Card>
+    <FadeTransform
+      in
+      transformProps={{
+        exitTransform: "scale(0.5) translateY(-50%)",
+      }}
+    >
+      <Card className="show-table" key={payroll.id}>
+        <Link to={`/payroll/${payroll.id}`}>
+          <CardTitle className="show-name">{payroll.name}</CardTitle>
+          <div className="show-pay">
+            <CardText>Mã nhân viên: {payroll.id}</CardText>
+            <CardText>Hệ số lương: {payroll.salaryScale}</CardText>
+            <CardText>Số giờ làm thêm: {payroll.overTime}</CardText>
+            <CardText>Lương: {payroll.salary}</CardText>
+          </div>
+        </Link>
+      </Card>
+    </FadeTransform>
   );
 }
 function Payroll(props) {
